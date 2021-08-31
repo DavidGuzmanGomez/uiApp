@@ -234,7 +234,19 @@
             <div class="pull-left">
               <h4 class="text-blue h4">Existencias</h4>
               <p class="mb-30" id="date"></p>
-              <table class="table table-striped" style="width: 175%">
+              <a
+                class="btn btn-primary dropdown-toggle no-arrow"
+                href="#"
+                role="button"
+                data-toggle="dropdown"
+                onclick="insertar();"
+              >
+                Agregar Materia
+              </a>
+              <table
+                class="table table-striped"
+                style="width: 175%; margin: 1%"
+              >
                 <thead>
                   <tr>
                     <td>ID</td>
@@ -260,9 +272,12 @@
     <script src="src/plugins/apexcharts/apexcharts.min.js"></script>
     <script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
     <script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+
     <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
     <script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
     <script src="vendors/scripts/dashboard.js"></script>
+    <!-- Sweet Alerts-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
       var materialData = "";
       var API_URL = "http://localhost:8080/materia";
@@ -292,7 +307,7 @@
           res += "</td>";
           res += "</tr>";
         });
-        content.innerHTML=(res);
+        content.innerHTML = res;
       }
       function getDate() {
         var today = new Date();
@@ -308,6 +323,84 @@
       }
       getDate();
       getData();
+      function insertar(cuenta) {
+        Swal.fire({
+          title: "<h2>Nueva Materia</h2>",
+          html: `<div class="form-group">
+                    <h4>Nombre<h4>
+                    <input type="text" id="name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                    <h4>Costo unidad<h4>
+                    <input type="number" id="cost" class="form-control">
+                    </div>
+                    <h4>Cantidad unidades<h4>
+                    <input type="number" id="cost" class="form-control">
+                    </div>
+                    <h4>Unidades<h4>
+                    <input type="number" id="cost" class="form-control">
+                    </div>
+                    <div class="form-group">`,
+          showCancelButton: true,
+          confirmButtonText: `Guardar`,
+          cancelButtonText: `Cancelar`,
+          preConfirm: () => {
+            const id = Swal.getPopup().querySelector("#id").value;
+            const cuenta = Swal.getPopup().querySelector("#cuenta").value;
+            const monto = Swal.getPopup().querySelector("#monto").value;
+            const fecha = Swal.getPopup().querySelector("#fecha").value;
+
+            if (!id || !cuenta || !monto || !fecha) {
+              Swal.showValidationMessage(`Ingrese todo los campos`);
+            } else {
+              Swal.fire({
+                title: "Desea Continuar?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: `Si`,
+                denyButtonText: `No`,
+              }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                  $.ajax({
+                    type: "POST",
+                    url: "",
+                    data: {
+                      id: id,
+                      cuenta: cuenta,
+                      monto: monto,
+                      fecha: fecha,
+                      tipo: "depositar",
+                    },
+                    cache: false,
+                    success: function (response) {
+                      Swal.fire({
+                        title: "Guardado!",
+                        text: "Materia Agregada.",
+                        icon: "success",
+                        timer: 2500,
+                        allowOutsideClick: false,
+                        showConfirmButton: false,
+                      }).then(function () {
+                        window.location = "materials.html";
+                      });
+                    },
+                    failure: function (response) {
+                      Swal.fire(
+                        "Error Interno",
+                        "Oops, no se pudo guardar.",
+                        "error"
+                      );
+                    },
+                  });
+                } else if (result.isDenied) {
+                  Swal.fire("Changes are not saved", "", "info");
+                }
+              });
+            }
+          },
+        });
+      }
     </script>
   </body>
 </html>
