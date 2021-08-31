@@ -232,11 +232,22 @@
         <div class="pd-20 card-box mb-30">
           <div class="clearfix">
             <div class="pull-left">
-              <h4 class="text-blue h4">Formulario</h4>
-              <p class="mb-30">*Todos los campos son obligatorios.</p>
+              <h4 class="text-blue h4">Existencias</h4>
+              <p class="mb-30" id="date"></p>
+              <table class="table table-striped" style="width: 175%">
+                <thead>
+                  <tr>
+                    <td>ID</td>
+                    <td>Nombre</td>
+                    <td>Unidades</td>
+                    <td>Costo por Unidades</td>
+                    <td>Existencias en Bodega</td>
+                  </tr>
+                </thead>
+                <tbody id="content"></tbody>
+              </table>
             </div>
           </div>
-         
         </div>
       </div>
     </div>
@@ -252,5 +263,51 @@
     <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
     <script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
     <script src="vendors/scripts/dashboard.js"></script>
+    <script>
+      var materialData = "";
+      var API_URL = "http://localhost:8080/materia";
+      var p = document.getElementById("date");
+      var content = document.getElementById("content");
+      var res = "";
+      async function getData() {
+        const dataR = await fetch(API_URL)
+          .then((response) => response.json())
+          .then((data) => data);
+        dataR.map((item, id) => {
+          res += "<tr>";
+          res += "<td>";
+          res += item.id;
+          res += "</td>";
+          res += "<td>";
+          res += item.nombre;
+          res += "</td>";
+          res += "<td>";
+          res += item.unidades;
+          res += "</td>";
+          res += "<td>$";
+          res += item.costoPorUnidad;
+          res += "</td>";
+          res += "<td>";
+          res += item.cantidadUnidadesEnBodega;
+          res += "</td>";
+          res += "</tr>";
+        });
+        content.innerHTML=(res);
+      }
+      function getDate() {
+        var today = new Date();
+        var date =
+          "Ultima actualizacion: " +
+          today.getFullYear() +
+          "-" +
+          (today.getMonth() + 1) +
+          "-" +
+          today.getDate();
+        var text = document.createTextNode(date);
+        p.appendChild(text);
+      }
+      getDate();
+      getData();
+    </script>
   </body>
 </html>
