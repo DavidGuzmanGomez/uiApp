@@ -201,7 +201,7 @@
           <div class="row">
             <div class="col-md-6 col-sm-12">
               <div class="title">
-                <h4>Administración de Materia Prima</h4>
+                <h4>Administración de Pedidos</h4>
               </div>
               <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
@@ -209,7 +209,7 @@
                     <a href="index.html">Inicio</a>
                   </li>
                   <li class="breadcrumb-item active" aria-current="page">
-                    Materia Prima
+                    Pedidos
                   </li>
                 </ol>
               </nav>
@@ -241,19 +241,21 @@
                 data-toggle="dropdown"
                 onclick="insertar();"
               >
-                Agregar Materia
+                Agregar Pedidos
               </a>
               <table
                 class="table table-striped"
-                style="width: 175%; margin: 1%"
+                style="width: 120%; margin: 1%"
               >
                 <thead>
                   <tr>
                     <td>ID</td>
-                    <td>Nombre</td>
-                    <td>Unidades</td>
-                    <td>Costo por Unidades</td>
-                    <td>Existencias en Bodega</td>
+                    <td>Cliente</td>
+                    <td>Tipo concentrado</td>
+                    <td>Cantidad Quintales</td>
+                    <td>Estado</td>
+                    <td>Fecha Pedido</td>
+                    <td>Fecha Entrega</td>
                   </tr>
                 </thead>
                 <tbody id="content"></tbody>
@@ -280,7 +282,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
       var materialData = "";
-      var API_URL = "http://localhost:8080/materia";
+      var API_URL = "http://localhost:8080/pedido";
       var p = document.getElementById("date");
       var content = document.getElementById("content");
       var res = "";
@@ -294,16 +296,22 @@
           res += item.id;
           res += "</td>";
           res += "<td>";
-          res += item.nombre;
+          res += item.cliente;
           res += "</td>";
           res += "<td>";
-          res += item.unidades;
+          res += item.concentrado;
           res += "</td>";
           res += "<td>$";
-          res += item.costoPorUnidad;
+          res += item.quintales;
           res += "</td>";
           res += "<td>";
-          res += item.cantidadUnidadesEnBodega;
+          res += item.estado;
+          res += "</td>";
+          res += "<td>";
+          res += item.fecha;
+          res += "</td>";
+          res += "<td>";
+          res += item.fechaEntrega;
           res += "</td>";
           res += "</tr>";
         });
@@ -325,7 +333,7 @@
       getData();
       function insertar(cuenta) {
         Swal.fire({
-          title: "<h2>Nueva Materia Prima</h2>",
+          title: "<h2>Nuevo Pedido</h2>",
           html: `<div class="form-group">
                     <h4>Nombre<h4>
                     <input type="text" id="name" class="form-control">
