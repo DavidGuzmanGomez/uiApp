@@ -202,7 +202,7 @@
           <div class="row">
             <div class="col-md-6 col-sm-12">
               <div class="title">
-                <h4>Administración de Clientes</h4>
+                <h4>Administración de Compras</h4>
               </div>
               <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
@@ -210,7 +210,7 @@
                     <a href="index.html">Inicio</a>
                   </li>
                   <li class="breadcrumb-item active" aria-current="page">
-                    Clientes
+                    Compras
                   </li>
                 </ol>
               </nav>
@@ -239,85 +239,25 @@
           </div>
           <!--Formulario-->
           <form id="formulario" method="post" enctype="multipart/form-data">
-            <div class="form-group row"></div>
             <div class="form-group row">
-              <label class="col-sm-12 col-md-2 col-form-label">Nombre</label>
+              <label class="col-sm-12 col-md-2 col-form-label">Cantidad</label>
               <div class="col-sm-12 col-md-10">
-                <input
-                  class="form-control"
-                  type="text"
-                  maxlength = "60"
-                  placeholder="Juan"
-                  id="nombre"
-                />
+                <input class="form-control" value="1" type="number"  id="cantidad">
               </div>
             </div>
+           
             <div class="form-group row">
-              <label class="col-sm-12 col-md-2 col-form-label">NIT</label>
-              <div class="col-sm-12 col-md-10">
-                <input
-                  class="form-control"
-                  type="text"
-                  id="nit"
-                  maxlength = "14"
-                  placeholder="####-######-###-#"
-                  onkeypress="javascript:return isNumber(event)"
-                />
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-12 col-md-2 col-form-label">Telefono</label>
-              <div class="col-sm-12 col-md-10">
-                <input
-                  class="form-control"
-                  id="telefono"
-                  maxlength = "8"
-                  placeholder="####-####"
-                  type="tel"
-                  onkeypress="javascript:return isNumber(event)"
-                />
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-12 col-md-2 col-form-label">Dirección</label>
-              <div class="col-sm-12 col-md-10">
-                <input
-                  class="form-control"
-                  type="text"
-                  id="direccion"
-                  maxlength = "255"
-                  placeholder="San Salvador, El Salvador"
-                />
-              </div>
+                <label class="col-sm-12 col-md-2 col-form-label">Materia Prima</label>
+                <div class="col-sm-12 col-md-10">
+                <select class="custom-select form-control" id="materia" onchange="getId()">
+                    
+                    
+                </select>
+                </div>
             </div>
 
             <button type="submit" class="btn btn-success">Guardar</button>
           </form>
-        </div>
-
-        <div class="pd-20 card-box mb-30">
-          <!--Table-->
-
-          <div class="pd-20 mt-3">
-            <h4 class="text-blue h4">Lista de Clientes</h4>
-          </div>
-
-          <div class="pb-20">
-            <table class="table hover data-table-export nowrap">
-              <thead>
-                <tr>
-                  <th class="d-none">_Id</th>
-                  <th class="table-plus">Nombre</th>
-                  <th>Dirección</th>
-                  <th>NIT</th>
-                  <th>Telefono</th>
-                </tr>
-              </thead>
-
-              <tbody id="table_customer"></tbody>
-            </table>
-          </div>
-          <!--Fin Table-->
         </div>
       </div>
     </div>
@@ -349,33 +289,39 @@
     <script src="src/plugins/sweetalert2/sweet-alert.init.js"></script>
 
     <script>
-      (function () {
+        const materias = new Map();
+        let selectedValue=0;
+
+     (function () {
         loadData();
       })();
 
-      function loadData() {
-        $.get("http://localhost:8080/cliente", function (data, status) {
-          var rows = $("#table_customer");
-          var content = "";
-          data.map((key, index) => {
-            content += "<tr>";
-            content += "<td class='d-none'>"+key.id+"</td>"
-            content += "<td class='table-plus'>" + key.nombre + "</td>";
-            content += "<td>" + key.direccion + "</td>";
-            content += "<td>" + key.nit + "</td>";
-            content += "<td>" + key.telefono + "</td>";
-            content += "</tr>";
-          });
+      function getId(){
+        selectedValue = document.getElementById("materia").value;
+      }
 
+      function loadData() {
+        $.get("http://localhost:8080/materia", function (data, status) {
+          var rows = $("#materia");
+          var content = "";
+          content += "<option value='01'>Seleccionar</option>";
+          data.map((key, index) => {
+            materias.set(key.nombre, key.id)
+            content+="<option value='"+ key.id +"'>"+ key.nombre +"</option>";
+          });
           rows.html(content);
         });
       }
 
       function cleanField() {
-        let field = ["direccion", "nit", "nombre", "telefono"];
+        let field = ["cantidad", "materia"];
 
         field.forEach((element) => {
-          $("#" + element + "").val("");
+            if(element==="cantidad"){
+                $("#" + element + "").val("1");
+            }else{
+                $("#" + element + "").val("");
+            }
           document
             .getElementById(element)
             .classList.remove("form-control-success");
@@ -383,13 +329,13 @@
       }
 
       function isValid() {
-        let field = ["direccion", "nit", "nombre", "telefono"];
+        let field = ["cantidad", "materia"];
         let contador = 0;
 
         field.forEach((element) => {
           let value = $("#" + element + "").val();
 
-          if (value === "") {
+          if (value === "" || value ==="01") {
             contador = 1;
           }
           validateIsEmpty(element, value);
@@ -399,7 +345,7 @@
       }
 
       function validateIsEmpty(key, value) {
-        if (value === "") {
+        if (value === "" || value ==="01" || value==="0") {
           document.getElementById(key).className += " form-control-danger";
         } else {
           document.getElementById(key).classList.remove("form-control-danger");
@@ -407,40 +353,14 @@
         }
       }
 
-      function isNumber(evt) {
-        var iKeyCode = (evt.which) ? evt.which : evt.keyCode
-        if (iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
-            return false;
-
-        return true;
-    }  
-
       $("#formulario").on("submit", function (e) {
         e.preventDefault();
-
         if (isValid() === true) {
-          let direccion = $("#direccion").val();
-          let nit = $("#nit").val();
-          let nombre = $("#nombre").val();
-          let telefono = $("#telefono").val();
+          let cantidad = $("#cantidad").val();
+          let id = selectedValue;
 
-          var JSONObj = {
-            direccion: direccion,
-            nit: nit,
-            nombre: nombre,
-            telefono: telefono,
-          };
-
-          var data = JSON.stringify(JSONObj);
-          var url = "http://localhost:8080/cliente";
-
-          fetch(url, {
-            method: "POST",
-            body: data,
-            headers: {
-              "Content-type": "application/json; charset=UTF-8",
-            },
-          })
+          var url = "http://localhost:8080/compra?idMateria="+id+"&cantidad="+cantidad+"";
+          fetch(url,{method: "POST"})
             .then(function (response) {
               if (response.ok) {
                 swal("Buen trabajo!", "Registro Guardado.", "success");
@@ -452,8 +372,6 @@
               console.warn("Something went wrong.", error);
             });
         }
-
-
       });
     </script>
   </body>
