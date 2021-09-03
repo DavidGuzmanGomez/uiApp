@@ -201,7 +201,7 @@
           <div class="row">
             <div class="col-md-6 col-sm-12">
               <div class="title">
-                <h4>Administración de Pedidos</h4>
+                <h4>Administración de Ventas</h4>
               </div>
               <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
@@ -209,7 +209,7 @@
                     <a href="index.html">Inicio</a>
                   </li>
                   <li class="breadcrumb-item active" aria-current="page">
-                    Pedidos
+                    Ventas
                   </li>
                 </ol>
               </nav>
@@ -241,21 +241,18 @@
                 data-toggle="dropdown"
                 onclick="insertar();"
               >
-                Agregar Pedidos
+                Agregar Venta
               </a>
               <table
                 class="table table-striped"
-                style="margin: 1%"
+                style="width: 250%; margin: 1%"
               >
                 <thead>
                   <tr>
                     <td>ID</td>
-                    <td>Cliente</td>
-                    <td>Tipo concentrado</td>
-                    <td>Cantidad Quintales</td>
-                    <td>Estado</td>
-                    <td>Fecha Pedido</td>
-                    <td>Fecha Entrega</td>
+                    <td>Id Pedido</td>
+                    <td>Fecha</td>
+                    <td>Monto</td>
                   </tr>
                 </thead>
                 <tbody id="content"></tbody>
@@ -282,7 +279,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
       var materialData = "";
-      var API_URL = "http://localhost:8080/pedido";
+      var API_URL = "http://localhost:8080/venta";
       var p = document.getElementById("date");
       var content = document.getElementById("content");
       var res = "";
@@ -296,23 +293,15 @@
           res += item.id;
           res += "</td>";
           res += "<td>";
-          res += item.cliente;
-          res += "</td>";
-          res += "<td>";
-          res += item.concentrado;
-          res += "</td>";
-          res += "<td>$";
-          res += item.quintales;
-          res += "</td>";
-          res += "<td>";
-          res += item.estado;
+          res += item.idPedido;
           res += "</td>";
           res += "<td>";
           res += item.fecha;
           res += "</td>";
-          res += "<td>";
-          res += item.fechaEntrega;
+          res += "<td>$";
+          res += item.monto;
           res += "</td>";
+          
           res += "</tr>";
         });
         content.innerHTML = res;
@@ -332,17 +321,14 @@
       getDate();
       getData();
       async function insertar(cuenta) {
-        const client = await fetch("http://localhost:8080/cliente")
+        const pedido = await fetch("http://localhost:8080/pedido")
           .then((response) => response.json())
           .then((data) => data);
         var optionsClient = "";
         client.forEach((item) => {
           optionsClient += `<option value="${item.id}">${item.nombre}</option>`;
         });
-        const conce = await fetch("http://localhost:8080/concentrado")
-          .then((response) => response.json())
-          .then((data) => data);
-        var optionsConce = "";
+        
         conce.forEach((item) => {
           optionsConce += `<option value="${item.id}">${item.nombre}</option>`;
         });
@@ -358,10 +344,7 @@
                       ${optionsClient}
                     </select>
                     </div>
-                    <h4>Concentrado<h4>
-                      <select id="idConcentrado" class="form-control">
-                      ${optionsConce}
-                    </select>
+                    
                     </div>
                     <h4>Quintales<h4>
                     <input type="number" id="quintales" class="form-control">
