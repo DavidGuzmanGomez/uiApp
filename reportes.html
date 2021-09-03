@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Basic Page Info -->
+    <meta charset="utf-8" />
+    <title>GorddiShop</title>
+
+    <!-- Site favicon -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="vendors/images/autodesk.svg"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="vendors/images/autodesk.svg"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="vendors/images/autodesk.svg"
+    />
+
+    <!-- Mobile Specific Metas -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="vendors/styles/core.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="vendors/styles/icon-font.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="src/plugins/datatables/css/dataTables.bootstrap4.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="src/plugins/datatables/css/responsive.bootstrap4.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="vendors/styles/style.css" />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "UA-119386393-1");
+    </script>
+  </head>
+  <body>
+    <div class="pre-loader">
+      <div class="pre-loader-box">
+        <div class="loader-logo">
+          <img
+            src="vendors/images/autodesk.svg"
+            alt=""
+            style="height: 200px; width: 500px"
+          />
+        </div>
+        <div class="loader-progress" id="progress_div">
+          <div class="bar" id="bar1"></div>
+        </div>
+        <div class="percent" id="percent1">0%</div>
+        <div class="loading-text">Cargando...</div>
+      </div>
+    </div>
+
+    <div class="header">
+      <div class="header-left">
+        <div class="menu-icon dw dw-menu"></div>
+        <div
+          class="search-toggle-icon dw dw-search2"
+          data-toggle="header_search"
+        ></div>
+        <div class="header-search">
+          <form>
+            <div class="form-group mb-0">
+              <i class="dw dw-search2 search-icon"></i>
+              <input
+                type="text"
+                class="form-control search-input"
+                placeholder="Buscar"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="dashboard-setting user-notification">
+          <div class="dropdown">
+            <a
+              class="dropdown-toggle no-arrow"
+              href="javascript:;"
+              data-toggle="right-sidebar"
+            >
+              <i class="dw dw-settings2"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="user-info-dropdown">
+          <div class="dropdown">
+            <a
+              class="dropdown-toggle"
+              href="#"
+              role="button"
+              data-toggle="dropdown no-arrow"
+            >
+              <span class="user-icon">
+                <img src="vendors/images/photo1.jpg" alt="" />
+              </span>
+              <span class="user-name">Administrador</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="left-side-bar">
+      <div class="brand-logo">
+        <a href="index.html">
+          <img src="vendors/images/autodesk.svg" alt="" class="dark-logo" />
+          <img src="vendors/images/autodesk.svg" alt="" class="light-logo" />
+        </a>
+        <div class="close-sidebar" data-toggle="left-sidebar-close">
+          <i class="ion-close-round"></i>
+        </div>
+      </div>
+      <div class="menu-block customscroll">
+        <div class="sidebar-menu">
+          <ul id="accordion-menu">
+            <li class="dropdown">
+              <a href="index.html" class="dropdown-toggle no-arrow">
+                <span class="micon dw dw-house-1"></span
+                ><span class="mtext">Inicio</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="customer.html" class="dropdown-toggle no-arrow">
+                <span class="micon dw dw-user1"></span
+                ><span class="mtext">Clientes</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="compras.html" class="dropdown-toggle no-arrow">
+                <span class="micon dw dw-shopping-cart-1"></span
+                ><span class="mtext">Compras</span>
+              </a>
+            </li>
+            <li>
+              <a href="materials.html" class="dropdown-toggle no-arrow">
+                <span class="micon dw dw-shopping-basket-1"></span
+                ><span class="mtext">Materia Prima</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="pedidos.html" class="dropdown-toggle no-arrow">
+                <span class="micon dw dw-invoice"></span
+                ><span class="mtext">Pedidos</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="ventas.html" class="dropdown-toggle no-arrow">
+                <span class="micon dw dw-money"></span
+                ><span class="mtext">Ventas</span>
+              </a>
+            </li>
+            <li class="dropdown">
+                <a href="reportes.html" class="dropdown-toggle no-arrow">
+                  <span class="micon dw dw-money"></span
+                  ><span class="mtext">Reportes</span>
+                </a>
+              </li>
+              <li class="dropdown">
+                <a href="factura.html" class="dropdown-toggle no-arrow">
+                  <span class="micon dw dw-money"></span
+                  ><span class="mtext">Facturas</span>
+                </a>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="mobile-menu-overlay"></div>
+
+    <div class="main-container">
+      <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-50px"></div>
+
+        <div class="page-header">
+          <div>
+            <div class="title">
+              <h4>Generación de reportes</h4>
+            </div>
+            <nav aria-label="breadcrumb" role="navigation">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a href="index.html">Inicio</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  reportes
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+
+        <div class="card my-2">
+          <div class="card-header">Reporte de materia prima</div>
+          <div class="card-body">
+            <form action="http://localhost:8080/reporte/materia">
+              <button type="submit" class="btn btn-info" formtarget="_blank">
+                Generar
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="card my-2">
+            <div class="card-header">Reporte de ventas por cliente</div>
+            <div class="card-body">
+              <form action="http://localhost:8080/reporte/ventas-cliente">
+                <label for="id">Código de cliente<label/>
+                <input type="number" id="id" name="id" required/>
+                <button type="submit" class="btn btn-info" formtarget="_blank">
+                  Generar
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div class="card my-2">
+            <div class="card-header">Reporte de ventas por mes</div>
+            <div class="card-body">
+              <form action="http://localhost:8080/reporte/ventas-mes">
+                <label for="fecha">Fecha<label/>
+                    <input type="date" id="fecha" name="fecha"
+                    value="2021-09-22"
+                    min="2018-01-01" max="2022-12-31">
+                <button type="submit" class="btn btn-info" formtarget="_blank">
+                  Generar
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div class="card my-2">
+            <div class="card-header">Reporte de pedidos por mes</div>
+            <div class="card-body">
+              <form action="http://localhost:8080/reporte/pedido">
+                <label for="fecha">Fecha<label/>
+                    <input type="date" id="fecha" name="fecha"
+                    value="2021-09-22"
+                    min="2018-01-01" max="2022-12-31">
+                <button type="submit" class="btn btn-info" formtarget="_blank">
+                  Generar
+                </button>
+              </form>
+            </div>
+          </div>
+
+      </div>
+    </div>
+    <!-- js -->
+    <script src="vendors/scripts/core.js"></script>
+    <script src="vendors/scripts/script.min.js"></script>
+    <script src="vendors/scripts/process.js"></script>
+    <script src="vendors/scripts/layout-settings.js"></script>
+    <script src="src/plugins/apexcharts/apexcharts.min.js"></script>
+    <script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+    <script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+    <script src="vendors/scripts/dashboard.js"></script>
+  </body>
+</html>
