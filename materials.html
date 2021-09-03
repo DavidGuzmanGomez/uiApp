@@ -335,22 +335,22 @@
                     <input type="number" id="cost" class="form-control">
                     </div>
                     <h4>Cantidad unidades<h4>
-                    <input type="number" id="cost" class="form-control">
+                    <input type="monto" id="monto" class="form-control">
                     </div>
                     <h4>Unidades<h4>
-                    <input type="number" id="cost" class="form-control">
+                    <input type="number" id="fecha" class="form-control">
                     </div>
                     <div class="form-group">`,
           showCancelButton: true,
           confirmButtonText: `Guardar`,
           cancelButtonText: `Cancelar`,
           preConfirm: () => {
-            const id = Swal.getPopup().querySelector("#id").value;
-            const cuenta = Swal.getPopup().querySelector("#cuenta").value;
+            const name = Swal.getPopup().querySelector("#name").value;
+            const cost = Swal.getPopup().querySelector("#cost").value;
             const monto = Swal.getPopup().querySelector("#monto").value;
             const fecha = Swal.getPopup().querySelector("#fecha").value;
 
-            if (!id || !cuenta || !monto || !fecha) {
+            if (!name || !monto || !cost || !fecha) {
               Swal.showValidationMessage(`Ingrese todo los campos`);
             } else {
               Swal.fire({
@@ -360,46 +360,9 @@
                 confirmButtonText: `Si`,
                 denyButtonText: `No`,
               }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
-                if (result.isConfirmed) {
-                  $.ajax({
-                    type: "POST",
-                    url: "",
-                    data: {
-                      id: id,
-                      cuenta: cuenta,
-                      monto: monto,
-                      fecha: fecha,
-                      tipo: "depositar",
-                    },
-                    cache: false,
-                    success: function (response) {
-                      Swal.fire({
-                        title: "Guardado!",
-                        text: "Materia Agregada.",
-                        icon: "success",
-                        timer: 2500,
-                        allowOutsideClick: false,
-                        showConfirmButton: false,
-                      }).then(function () {
-                        window.location = "materials.html";
-                      });
-                    },
-                    failure: function (response) {
-                      Swal.fire(
-                        "Error Interno",
-                        "Oops, no se pudo guardar.",
-                        "error"
-                      );
-                    },
-                  });
-                } else if (result.isDenied) {
-                  Swal.fire("Changes are not saved", "", "info");
-                }
-              });
-            }
-          },
-        });
+                Swal.fire("Pendiente de programar", "", "info");
+          })
+          }}});
       }
     </script>
   </body>
