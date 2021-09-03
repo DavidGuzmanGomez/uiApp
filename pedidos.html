@@ -331,7 +331,10 @@
       }
       getDate();
       getData();
-      function insertar(cuenta) {
+      async function insertar(cuenta) {
+        const cliente = await fetch("http://localhost:8080/cliente")
+          .then((response) => response.json())
+          .then((data) => data);
         Swal.fire({
           title: "<h2>Nuevo Pedido</h2>",
           html: `<div class="form-group">
@@ -339,14 +342,15 @@
                     <input type="text" id="name" class="form-control">
                     </div>
                     <div class="form-group">
-                    <h4>Costo unidad<h4>
-                    <input type="number" id="cost" class="form-control">
+                    <h4>Cliente<h4>
+                    <select id="cliente" class="form-control">
+                    </select>
                     </div>
                     <h4>Cantidad unidades<h4>
                     <input type="number" id="cost" class="form-control">
                     </div>
-                    <h4>Unidades<h4>
-                    <input type="number" id="cost" class="form-control">
+                    <h4>Quintales<h4>
+                    <input type="number" id="quintales" class="form-control">
                     </div>
                     <div class="form-group">`,
           showCancelButton: true,
