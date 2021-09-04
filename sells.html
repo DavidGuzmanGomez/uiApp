@@ -182,9 +182,21 @@
               </a>
             </li>
             <li class="dropdown">
-              <a href="javascript:;" class="dropdown-toggle no-arrow">
+              <a href="sells.html" class="dropdown-toggle no-arrow">
                 <span class="micon dw dw-money"></span
                 ><span class="mtext">Ventas</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="reportes.html" class="dropdown-toggle no-arrow">
+                <span class="micon dw dw-money"></span
+                ><span class="mtext">Reportes</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="factura.html" class="dropdown-toggle no-arrow">
+                <span class="micon dw dw-money"></span
+                ><span class="mtext">Facturas</span>
               </a>
             </li>
           </ul>
@@ -301,7 +313,7 @@
           res += "<td>$";
           res += item.monto;
           res += "</td>";
-          
+
           res += "</tr>";
         });
         content.innerHTML = res;
@@ -328,7 +340,7 @@
         client.forEach((item) => {
           optionsClient += `<option value="${item.id}">${item.nombre}</option>`;
         });
-        
+
         conce.forEach((item) => {
           optionsConce += `<option value="${item.id}">${item.nombre}</option>`;
         });
