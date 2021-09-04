@@ -246,6 +246,7 @@
             <div class="pull-left">
               <h4 class="text-blue h4">Existencias</h4>
               <p class="mb-30" id="date"></p>
+             
               <table
                 class="table table-striped"
                 style="width: 250%; margin: 1%"
@@ -374,9 +375,7 @@
                     fetch("http://localhost:8080/venta", {
                       method: "POST",
                       body: JSON.stringify({
-                        fecha: fechaEntrega,
                         idPedido: parseInt,
-                        monto: monto,
                       }),
                     })
                       .then((response) => response.json())
