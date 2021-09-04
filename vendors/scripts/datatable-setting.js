@@ -12,8 +12,7 @@ $('document').ready(function(){
 			"info": "_START_-_END_ of _TOTAL_ entries",
 			searchPlaceholder: "Buscar",
 			paginate: {
-				next: '<i class="ion-chevron-right"></i>',
-				previous: '<i class="ion-chevron-left"></i>'  
+				
 			}
 		},
 	});
@@ -30,10 +29,7 @@ $('document').ready(function(){
 		"language": {
 			"info": "_START_-_END_ of _TOTAL_ entries",
 			searchPlaceholder: "Buscar",
-			paginate: {
-				next: '<i class="ion-chevron-right"></i>',
-				previous: '<i class="ion-chevron-left"></i>'  
-			}
+			
 		},
 		dom: 'Bfrtp',
 		buttons: [
@@ -64,10 +60,7 @@ $('document').ready(function(){
 		"language": {
 			"info": "_START_-_END_ of _TOTAL_ entries",
 			searchPlaceholder: "Buscar",
-			paginate: {
-				next: '<i class="ion-chevron-right"></i>',
-				previous: '<i class="ion-chevron-left"></i>'  
-			}
+			
 		},
 		'columnDefs': [{
 			'targets': 0,
