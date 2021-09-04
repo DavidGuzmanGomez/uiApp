@@ -388,16 +388,7 @@
                 confirmButtonText: `Si`,
                 denyButtonText: `No`,
               }).then((result) => {
-                console.log(
-                  fechaEntrega +
-                    " " +
-                    idCliente +
-                    " " +
-                    idConcentrado +
-                    " " +
-                    quintales
-                );
-                /* Read more about isConfirmed, isDenied below */
+               if(quintales>0){
                 if (result.isConfirmed) {
                   try {
                     fetch("http://localhost:8080/pedido", {
@@ -433,6 +424,15 @@
                 } else if (result.isDenied) {
                   Swal.fire("Changes are not saved", "", "info");
                 }
+               }else{
+                Swal.fire(
+                      "Error Interno",
+                      "Oops, no se pudo guardar.",
+                      "error"
+                    );
+               }
+                /* Read more about isConfirmed, isDenied below */
+                
               });
             }
           },
