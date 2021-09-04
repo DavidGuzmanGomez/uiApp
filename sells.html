@@ -337,13 +337,10 @@
           .then((response) => response.json())
           .then((data) => data);
         var optionsClient = "";
-        client.forEach((item) => {
-          optionsClient += `<option value="${item.id}">${item.nombre}</option>`;
+        pedido.forEach((item) => {
+          optionsClient += `<option value="${item.id}">cantidad quintales ${item.quintales}</option>`;
         });
 
-        conce.forEach((item) => {
-          optionsConce += `<option value="${item.id}">${item.nombre}</option>`;
-        });
         Swal.fire({
           title: "<h2>Nueva Venta</h2>",
           html: `<div class="form-group">
@@ -352,14 +349,13 @@
                     </div>
                     <div class="form-group">
                     <h4>Cliente<h4>
-                    <select id="idCliente" class="form-control">
+                    <select id="idPedido" class="form-control">
                       ${optionsClient}
                     </select>
                     </div>
-                    
                     </div>
                     <h4>Quintales<h4>
-                    <input type="number" id="quintales" class="form-control">
+                    <input type="number" id="monto" class="form-control">
                     </div>
                     <div class="form-group">`,
           showCancelButton: true,
@@ -368,12 +364,11 @@
           preConfirm: () => {
             const fechaEntrega =
               Swal.getPopup().querySelector("#fechaEntrega").value;
-            const idCliente = Swal.getPopup().querySelector("#idCliente").value;
-            const idConcentrado =
-              Swal.getPopup().querySelector("#idConcentrado").value;
-            const quintales = Swal.getPopup().querySelector("#quintales").value;
+            const idPedido = Swal.getPopup().querySelector("#idPedido").value;
+            const monto =
+              Swal.getPopup().querySelector("#monto").value;
 
-            if (!fechaEntrega || !idCliente || !idConcentrado || !quintales) {
+            if (!fechaEntrega || !idPedido || !monto ) {
               Swal.showValidationMessage(`Ingrese todo los campos`);
             } else {
               Swal.fire({
@@ -383,26 +378,16 @@
                 confirmButtonText: `Si`,
                 denyButtonText: `No`,
               }).then((result) => {
-                console.log(
-                  fechaEntrega +
-                    " " +
-                    idCliente +
-                    " " +
-                    idConcentrado +
-                    " " +
-                    quintales
-                );
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                   try {
-                    fetch("http://localhost:8080/pedido", {
+                    fetch("http://localhost:8080/venta", {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({
-                        fechaEntrega: fechaEntrega,
-                        idCliente: idCliente,
-                        idConcentrado: idConcentrado,
-                        quintales: quintales,
+                        fecha: fechaEntrega,
+                        idPedido: idPedido,
+                        monto: monto
                       }),
                     })
                       .then((response) => response.json())
@@ -415,7 +400,7 @@
                           allowOutsideClick: false,
                           showConfirmButton: false,
                         }).then(function () {
-                          window.location = "pedidos.html";
+                          window.location = "sells.html";
                         });
                       });
                   } catch (error) {
