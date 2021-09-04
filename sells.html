@@ -246,15 +246,6 @@
             <div class="pull-left">
               <h4 class="text-blue h4">Existencias</h4>
               <p class="mb-30" id="date"></p>
-              <a
-                class="btn btn-primary dropdown-toggle no-arrow"
-                href="#"
-                role="button"
-                data-toggle="dropdown"
-                onclick="insertar();"
-              >
-                Agregar Venta
-              </a>
               <table
                 class="table table-striped"
                 style="width: 250%; margin: 1%"
@@ -365,10 +356,9 @@
             const fechaEntrega =
               Swal.getPopup().querySelector("#fechaEntrega").value;
             const idPedido = Swal.getPopup().querySelector("#idPedido").value;
-            const monto =
-              Swal.getPopup().querySelector("#monto").value;
+            const monto = Swal.getPopup().querySelector("#monto").value;
 
-            if (!fechaEntrega || !idPedido || !monto ) {
+            if (!fechaEntrega || !idPedido || !monto) {
               Swal.showValidationMessage(`Ingrese todo los campos`);
             } else {
               Swal.fire({
@@ -383,11 +373,10 @@
                   try {
                     fetch("http://localhost:8080/venta", {
                       method: "POST",
-                      headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({
                         fecha: fechaEntrega,
-                        idPedido: idPedido,
-                        monto: monto
+                        idPedido: parseInt,
+                        monto: monto,
                       }),
                     })
                       .then((response) => response.json())
@@ -400,7 +389,7 @@
                           allowOutsideClick: false,
                           showConfirmButton: false,
                         }).then(function () {
-                          window.location = "sells.html";
+                          //window.location = "sells.html";
                         });
                       });
                   } catch (error) {
